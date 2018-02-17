@@ -1,2 +1,2 @@
-## Internet Technologies, C#
-#### FINKI - Laboratory and other exercises
+## Internet Technologies, _**C**_#
+#### _**FINKI**_ - Laboratory and other exercises
