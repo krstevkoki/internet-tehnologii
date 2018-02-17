@@ -41,13 +41,14 @@ namespace zad1
                             string destination = lineParts[3];
                             cashierNumber = Convert.ToInt32(lineParts[4]);
 
-                            if (cashierNumber < 0 || cashierNumber >= agency.Cashiers.Count)
+                            if (!agency.IsValidCashierNumber(cashierNumber))
                             {
                                 Console.WriteLine("\n*** Nevaliden broj na shalter ***\n");
                                 break;
                             }
 
-                            if (!Agency.IsValidDestination(destination))
+                            Destination d;
+                            if ((d = Agency.GetDestination(destination)) == null)
                             {
                                 Console.WriteLine("\n*** Karti za baranata destinacija ne se prodavaat ***\n");
                                 break;
@@ -55,14 +56,14 @@ namespace zad1
 
                             agency.Cashiers[cashierNumber]
                                 .AddTicket(
-                                    new Ticket(firstName, lastName, age, new Destination(destination))
+                                    new Ticket(firstName, lastName, age, d)
                                 );
                             ++agency.NumberOfServedClients;
 
                             Console.WriteLine("\n<<< Uspesno rezerviranje >>>\n");
                         }
                         else
-                            Console.WriteLine();
+                            Console.WriteLine("\n<<< NEUSPESNA REZERVACIJA >>>\n");
 
                         break;
 
@@ -70,7 +71,7 @@ namespace zad1
                         Console.WriteLine("Vnesete broj na shalter");
 
                         cashierNumber = Convert.ToInt32(Console.ReadLine());
-                        if (cashierNumber < 0 || cashierNumber >= agency.Cashiers.Count)
+                        if (!agency.IsValidCashierNumber(cashierNumber))
                         {
                             Console.WriteLine("\n*** Nevaliden broj na shalter ***\n");
                             break;
@@ -88,7 +89,7 @@ namespace zad1
                         Console.WriteLine("Vnesete broj na shalter");
 
                         cashierNumber = Convert.ToInt32(Console.ReadLine());
-                        if (cashierNumber < 0 || cashierNumber >= agency.Cashiers.Count)
+                        if (!agency.IsValidCashierNumber(cashierNumber))
                         {
                             Console.WriteLine("\n*** Nevaliden broj na shalter ***\n");
                             break;
@@ -122,7 +123,7 @@ namespace zad1
                         }
                         catch (DivideByZeroException)
                         {
-                            Console.WriteLine("\n0%\n");
+                            Console.WriteLine("\nNo visitors in the agency, 0.00%\n");
                         }
 
                         break;
@@ -285,12 +286,17 @@ namespace zad1
             return sb.ToString();
         }
 
-        public static bool IsValidDestination(string destination)
+        public static Destination GetDestination(string destination)
         {
             foreach (var dest in AvailableDestinations)
                 if (dest.Name.ToLower() == destination.ToLower())
-                    return true;
-            return false;
+                    return dest;
+            return null;
+        }
+        
+        public bool IsValidCashierNumber(int number)
+        {
+            return number >= 0 && number < Cashiers.Count;
         }
     }
 }
