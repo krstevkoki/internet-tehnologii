@@ -9,6 +9,9 @@
         .auto-style1 {
             width: 100%;
         }
+        .auto-style2 {
+            height: 84px;
+        }
     </style>
 </head>
 <body>
@@ -18,7 +21,7 @@
                 <td>Градови:</td>
             </tr>
             <tr>
-                <td>
+                <td class="auto-style2">
                     <asp:ListBox ID="lstTowns" runat="server" AutoPostBack="True" OnSelectedIndexChanged="lstTowns_SelectedIndexChanged" SelectionMode="Multiple">
                         <asp:ListItem Value="0km">Скопје</asp:ListItem>
                         <asp:ListItem Value="40km">Куманово</asp:ListItem>
