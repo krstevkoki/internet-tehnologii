@@ -1,0 +1,42 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "kolokvium1_2017_g2", "kolokvium1_2017_g2\", "{64F02297-0CD8-4A90-9101-C920D9970A79}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.7.1"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_2170"
+		Debug.AspNetCompiler.PhysicalPath = "kolokvium1_2017_g2\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2170\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_2170"
+		Release.AspNetCompiler.PhysicalPath = "kolokvium1_2017_g2\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_2170\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "2170"
+		SlnRelativePath = "kolokvium1_2017_g2\"
+		DefaultWebSiteLanguage = "Visual C#"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64F02297-0CD8-4A90-9101-C920D9970A79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64F02297-0CD8-4A90-9101-C920D9970A79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BD1C5C2E-E0F3-4ED8-94DD-2274C379813B}
+	EndGlobalSection
+EndGlobal
