@@ -1,0 +1,17 @@
+﻿@model MVCLesson1.Models.Movie
+@{
+    ViewBag.Title = "ShowMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ShowMovie</h2>
+<div class="jumbotron">
+    <span class="alert-success">@Model.Name</span> <br />
+    <span class="alert-success">@Model.Rating</span> <br />
+    <span class="alert-success">@Model.DownloadURL</span> <br />
+    <span class="alert-success">@Model.ImageURL</span> <br />
+</div>
+
+<div class="container">
+    <span class="alert-success">@Model.ToString()</span>
+</div>
