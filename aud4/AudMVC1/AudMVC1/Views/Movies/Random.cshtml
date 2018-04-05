@@ -1,0 +1,24 @@
+﻿@model AudMVC1.Models.MovieRental
+@{
+    ViewBag.Title = "Random";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Movie.Name</h2>
+
+<h4>
+    Rating: <span style="font-weight: bold">@Model.Movie.Rating.ToString(".00")</span>
+</h4>
+
+<span>
+    Download from <a href="@Model.Movie.DownloadURL" target="_blank">HERE</a>
+</span>
+<h4 style="font-weight: bold">Clients: <br/></h4>
+<ul>
+    @{
+        foreach (var client in @Model.Clients)
+        {
+            <li>@client.Name - @client.Age [@client.MemberCard]</li>
+        }
+    }
+</ul>
