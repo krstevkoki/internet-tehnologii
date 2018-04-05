@@ -16,9 +16,11 @@
 <h4 style="font-weight: bold">Clients: <br/></h4>
 <ul>
     @{
+        int i = 0;
         foreach (var client in @Model.Clients)
         {
-            <li>@client.Name - @client.Age [@client.MemberCard]</li>
+            string display = @client.Name + " - " + @client.Age + " [" + @client.MemberCard + "]";
+            <li>@Html.ActionLink(display, "ShowClient", new {id = i++})</li>
         }
     }
 </ul>
