@@ -1,0 +1,20 @@
+﻿@model AudMVC2.Models.Client
+@{
+    ViewBag.Title = "ShowClient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    if (Model.Age < 18)
+    {
+        <h1 style="color: red">Потребен е надзор од родител или старател</h1>
+    }
+    else
+    {
+        <h3>Name: <span style="font-weight: bold">@Model.Name</span></h3>
+        <h3>Age: <span style="font-weight: bold">@Model.Age</span></h3>
+        <h3>Address: <span style="font-weight: bold">@Model.Address</span></h3>
+        <h3>Telephone: <span style="font-weight: bold">@Model.Telephone</span></h3>
+        <h3>MemberCard: <span style="font-weight: bold">@Model.MemberCard</span></h3>
+    }
+}
