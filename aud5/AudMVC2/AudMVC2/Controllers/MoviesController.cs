@@ -80,11 +80,8 @@ namespace AudMVC2.Controllers
         {
             if (!ModelState.IsValid)
                 return View("EditMovie", model);
-            var movieToEdit = movies.ElementAt(model.ID);
-            movieToEdit.Name = model.Name;
-            movieToEdit.Rating = model.Rating;
-            movieToEdit.DownloadURL = model.DownloadURL;
-            movieToEdit.ImageURL = model.ImageURL;
+            movies.RemoveAt(model.ID);
+            movies.Insert(model.ID, model);
             return RedirectToAction("GetAllMovies", "Movies");
 //            return View("GetAllMovies", movies);
         }
