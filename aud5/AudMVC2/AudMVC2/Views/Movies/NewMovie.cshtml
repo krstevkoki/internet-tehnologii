@@ -16,7 +16,7 @@
 
     <div class="form-group">
         @Html.LabelFor(movie => movie.Rating)
-        @Html.TextBoxFor(movie => movie.Rating, new { @class = "form-control", type = "number" })
+        @Html.TextBoxFor(movie => movie.Rating, new { @class = "form-control", type = "number", step=".1"})
         @Html.ValidationMessageFor(movie => movie.Rating)
     </div>
 
