@@ -43,12 +43,11 @@ namespace Lab3MVC.Controllers
         public ActionResult EditFriend(int id)
         {
             var model = friends.ElementAt(id);
-            model.ID = id;
             return View(model);
         }
 
         [HttpPost]
-        public ActionResult EditFriendPost(FriendModel model)
+        public ActionResult EditFriend(FriendModel model)
         {
             if (!ModelState.IsValid)
                 return View("EditFriend", model);
