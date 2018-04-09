@@ -29,6 +29,7 @@
                     int i = 0;
                     foreach (var m in Model)
                     {
+                        m.ID = i++;
                         <tr>
                             <td>
                                 @m.FriendID
@@ -41,10 +42,10 @@
                             </td>
                             <td style="width: 10%">
                                 @Html.ActionLink("Edit", "EditFriend",
-                                    new {id = i}, new {@class = "btn btn-default", style = "width: 90%; margin-bottom: 5px"})
+                                    new {id = m.ID}, new {@class = "btn btn-default", style = "width: 90%; margin-bottom: 5px"})
 
                                 @Html.ActionLink("Delete", "DeleteFriend",
-                                    new {id = i++}, new {@class = "btn btn-default", style = "width: 90%; margin-bottom: 5px"})
+                                    new {id = m.ID}, new {@class = "btn btn-default", style = "width: 90%; margin-bottom: 5px"})
                             </td>
                         </tr>
                     }
