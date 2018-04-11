@@ -10,10 +10,14 @@
 <h3>Clients</h3>
 <ul>
     @{
-        int i = 0;
         foreach (var client in Model.Clients)
         {
-            <li>@Html.ActionLink(client.Name, "ShowClient", new { id = i++ })</li>
+            <li>
+                @Html.ActionLink(client.Name, "ShowClient", "Clients",
+                    new {id = client.Id}, new {})
+            </li>
         }
     }
 </ul>
+@Html.ActionLink($"Add new client to {Model.Movie.Name}", "InsertClientInMovie", "Clients",
+    new {id = Model.Movie.Id}, new {@class = "btn btn-default", style="text-decoration: none;"})

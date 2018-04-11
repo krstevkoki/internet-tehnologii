@@ -10,59 +10,32 @@ namespace Aud3MVC.Controllers
 {
     public class MoviesController : Controller
     {
-        private static List<Movie> movies = new List<Movie>()
-        {
-            new Movie()
-            {
-                Name = "Shrek!",
-                Rating = 6.7M,
-                DownloadURL = @"https://www.google.com/search?q=Shrek!",
-                ImageURL =
-                    @"https://vignette.wikia.nocookie.net/shrek/images/9/9b/GoodShrekImage.png/revision/latest?cb=20171217221732"
-            }
-        };
+        private MyDbContext _context;
 
-        private static List<Client> clients = new List<Client>()
+        public MoviesController()
         {
-        };
+            _context = new MyDbContext();
+        }
 
         // GET: Movies
         public ActionResult GetAllMovies()
         {
-            return View(movies);
-        }
-
-        public ActionResult ShowClient(int id)
-        {
-            if (id >= 0 && id < clients.Count)
-            {
-                Client model = clients[id];
-                return View(model);
-            }
-
-            return HttpNotFound();
-        }
-
-        public ActionResult NewClient()
-        {
-            Client model = new Client();
+            var model = _context.Movies.ToList();
+//            model.Sort((movie1, movie2) => movie1.Name.CompareTo(movie2.Name));
             return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult NewClient(Client model)
-        {
-            if (!ModelState.IsValid)
-                return View("NewClient", model);
-            clients.Add(model);
-            return RedirectToAction("GetAllMovies", "Movies");
         }
 
         public ActionResult ShowMovie(int id)
         {
+//            var movie = _context.Movies.FirstOrDefault(_movie => _movie.Id == id);
+            var movie = _context.Movies.Find(id);
+            if (movie == null)
+                return HttpNotFound();
+            var clients = movie.Clients.ToList();
+//            clients.Sort((client1, client2) => client2.Age.CompareTo(client1.Age));
             MovieRentalViewModel model = new MovieRentalViewModel()
             {
-                Movie = movies.ElementAt(id),
+                Movie = movie,
                 Clients = clients
             };
             return View(model);
@@ -70,8 +43,10 @@ namespace Aud3MVC.Controllers
 
         public ActionResult EditMovie(int id)
         {
-            var model = movies.ElementAt(id);
-            model.ID = id;
+            var model = _context.Movies.Find(id);
+            if (model == null)
+                return HttpNotFound();
+            //model.Id = id;
             return View(model);
         }
 
@@ -80,8 +55,16 @@ namespace Aud3MVC.Controllers
         {
             if (!ModelState.IsValid)
                 return View("EditMovie", model);
-            movies.RemoveAt(model.ID);
-            movies.Insert(model.ID, model);
+            var toEdit = _context.Movies.Find(model.Id);
+            if (toEdit == null)
+                return HttpNotFound();
+            
+            toEdit.DownloadURL = model.DownloadURL;
+            toEdit.ImageUrl = model.ImageUrl;
+            toEdit.Name = model.Name;
+            toEdit.Rating = model.Rating;
+
+            _context.SaveChanges();
             return RedirectToAction("GetAllMovies", "Movies");
 //            return View("GetAllMovies", movies);
         }
@@ -97,14 +80,21 @@ namespace Aud3MVC.Controllers
         {
             if (!ModelState.IsValid)
                 return View("NewMovie", model);
-            movies.Add(model);
+            _context.Movies.Add(model);
+            _context.SaveChanges();
             return RedirectToAction("GetAllMovies", "Movies");
 //            return View("GetAllMovies", movies);
         }
 
         public ActionResult DeleteMovie(int id)
         {
-            movies.RemoveAt(id);
+            var movie = _context.Movies.Find(id);
+            if (movie != null)
+            {
+                _context.Movies.Remove(movie);
+                _context.SaveChanges();
+            }
+
             return RedirectToAction("GetAllMovies", "Movies");
 //            return View("GetAllMovies", movies);
         }

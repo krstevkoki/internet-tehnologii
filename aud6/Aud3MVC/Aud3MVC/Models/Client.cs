@@ -8,18 +8,21 @@ namespace Aud3MVC.Models
 {
     public class Client
     {
+        [Key] public int Id { get; set; }
         [Required] public string Name { get; set; }
-        [Required] public string Address { get; set; }
+        public string Address { get; set; }
 
-        [Required]
         [Range(1, Int32.MaxValue, ErrorMessage = "Age must be a positive number (> 0)")]
         public int Age { get; set; }
 
-        [Required]
-        [Display(Name = "Member card")]
-        public string MemberCard { get; set; }
-
-        [Required] public string Telephone { get; set; }
+        [Display(Name = "Member card")] public string MemberCard { get; set; }
+        public string Telephone { get; set; }
         public bool IsSubscribed { get; set; }
+        public virtual ICollection<Movie> Movies { get; set; } // used for database communication for Client & Model
+
+        public Client()
+        {
+            Movies = new List<Movie>();
+        }
     }
 }

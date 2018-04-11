@@ -16,20 +16,18 @@
 
     <div class="form-group">
         @Html.LabelFor(movie => movie.Rating)
-        @Html.TextBoxFor(movie => movie.Rating, new { @class = "form-control", type = "number", step = ".1" })
+        @Html.TextBoxFor(movie => movie.Rating, new { @class = "form-control", type = "number", step = ".01" })
         @Html.ValidationMessageFor(movie => movie.Rating)
     </div>
 
     <div class="form-group">
         @Html.LabelFor(movie => movie.DownloadURL)
         @Html.TextBoxFor(movie => movie.DownloadURL, new { @class = "form-control" })
-        @Html.ValidationMessageFor(movie => movie.DownloadURL)
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(movie => movie.ImageURL)
-        @Html.TextBoxFor(movie => movie.ImageURL, new { @class = "form-control" })
-        @Html.ValidationMessageFor(movie => movie.ImageURL)
+        @Html.LabelFor(movie => movie.ImageUrl)
+        @Html.TextBoxFor(movie => movie.ImageUrl, new { @class = "form-control" })
     </div>
 
     <div class="form-group">
