@@ -1,0 +1,38 @@
+﻿@model Aud3MVC.Models.Movie
+@{
+    ViewBag.Title = "NewMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new Movie</h2>
+
+@using (Html.BeginForm("NewMovie", "Movies"))
+{
+    <div class="form-group">
+        @Html.LabelFor(movie => movie.Name)
+        @Html.TextBoxFor(movie => movie.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(movie => movie.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(movie => movie.Rating)
+        @Html.TextBoxFor(movie => movie.Rating, new { @class = "form-control", type = "number", step = ".1" })
+        @Html.ValidationMessageFor(movie => movie.Rating)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(movie => movie.DownloadURL)
+        @Html.TextBoxFor(movie => movie.DownloadURL, new { @class = "form-control" })
+        @Html.ValidationMessageFor(movie => movie.DownloadURL)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(movie => movie.ImageURL)
+        @Html.TextBoxFor(movie => movie.ImageURL, new { @class = "form-control" })
+        @Html.ValidationMessageFor(movie => movie.ImageURL)
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-primary" />
+    </div>
+}

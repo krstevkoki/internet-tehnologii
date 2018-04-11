@@ -1,0 +1,24 @@
+﻿@model IEnumerable<Aud3MVC.Models.Movie>
+@{
+    ViewBag.Title = "GetAllMovies";
+}
+
+<h2>Movies:</h2>
+<ul>
+    @{
+        int i = 0;
+        foreach (var movie in Model)
+        {
+            <li>
+                <h4>
+                    <img src="@movie.ImageURL" style="max-width: 100px; max-height: 100px" />
+                    @Html.ActionLink(movie.Name, "ShowMovie", new { id = i })
+                    |
+                    @Html.ActionLink("Edit", "EditMovie", new { id = i })
+                    |
+                    @Html.ActionLink("Delete", "DeleteMovie", new { id = i++ })
+                </h4>
+            </li>
+        }
+    }
+</ul>
