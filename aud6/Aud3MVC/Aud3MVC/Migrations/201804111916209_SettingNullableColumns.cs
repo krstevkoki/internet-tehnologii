@@ -1,0 +1,16 @@
+namespace Aud3MVC.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class SettingNullableColumns : DbMigration
+    {
+        public override void Up()
+        {
+        }
+        
+        public override void Down()
+        {
+        }
+    }
+}

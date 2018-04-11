@@ -1,0 +1,22 @@
+﻿@model Aud3MVC.ViewModels.ClientMovieViewModel
+@{
+    ViewBag.Title = "InsertClientInMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Insert Client in @Model.Movie.Name</h2>
+
+@using (Html.BeginForm("InsertClientInMovie", "Clients"))
+{
+    <div class="form-group">
+        @Html.DropDownListFor(m => m.SelectedClientId,
+                         //   items      value   text
+            new SelectList(Model.Clients, "Id", "Name"),
+            new {@class = "form-control"})
+        @Html.HiddenFor(m => m.MovieId)
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Add client to movie" class="btn btn-primary"/>
+    </div>
+}
