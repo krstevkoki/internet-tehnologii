@@ -4,19 +4,22 @@
 }
 
 <h2>Movies:</h2>
-<ul>
+<ul class="list-group container">
     @{
         foreach (var movie in Model)
         {
-            <li>
-                <h4>
-                    <img src="@movie.ImageUrl" style="max-width: 100px; max-height: 100px" />
-                    @Html.ActionLink(movie.Name, "ShowMovie", new { id = movie.Id })
-                    |
-                    @Html.ActionLink("Edit", "EditMovie", new { id = movie.Id })
-                    |
-                    @Html.ActionLink("Delete", "DeleteMovie", new { id = movie.Id })
-                </h4>
+            <li class="list-group-item row">
+                <div class="col-sm-12">
+                    <img src="@movie.ImageUrl" style="max-width: 100px; max-height: 100px"
+                         class="img-thumbnail img-responsive img-rounded"/>
+                    @Html.ActionLink(movie.Name, "ShowMovie", "Movies",
+                        new {id = movie.Id}, new {@class = "btn btn-default"})
+                    @Html.ActionLink("Edit", "EditMovie", "Movies",
+                        new {id = movie.Id}, new {@class = "btn btn-primary"})
+                    @Html.ActionLink("Delete", "DeleteMovie", "Movies",
+                        new {id = movie.Id}, new {@class = "btn btn-danger"})
+                </div>
+
             </li>
         }
     }
