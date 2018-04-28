@@ -1,0 +1,64 @@
+﻿@model IEnumerable<MVCAud4.Models.Movie>
+@{
+    ViewBag.Title = "GetAllMovies";
+}
+
+<h2>Movies:</h2>
+<table id="my-table" class="table table-hover table-responsive">
+    <thead>
+    <tr>
+        <th>Movie</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    @{
+        foreach (var movie in Model)
+        {
+            <tr>
+                <td>
+                    <img src="@movie.ImageUrl" style="max-width: 100px; max-height: 100px"
+                         class="img-thumbnail img-responsive img-rounded"/>
+
+                    @Html.ActionLink(movie.Name, "ShowMovie", "Movies",
+                        new {id = movie.Id}, new {@class = "btn btn-default"})
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditMovie", "Movies",
+                        new {id = movie.Id}, new {@class = "btn btn-primary"})
+                    <button class="btn btn-danger js-delete" data-movie-id="@movie.Id">Delete</button>
+                </td>
+            </tr>
+        }
+    }
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).on("ready",
+            function() {
+                $("#my-table").DataTable();
+
+                $("#my-table .js-delete").on("click",
+                    function() {
+                        var button = $(this);
+                        var url = "/api/moviesapi/" + button.attr("data-movie-id");
+                        console.log(url);
+                        $.ajax({
+                            url: url,
+                            method: "DELETE",
+                            success: function() {
+                                var parent = button.parents("tr");
+                                $(parent).fadeOut("slow",
+                                    function() {
+                                        table.row(parent).remove().draw();
+                                    });
+                            }
+                        });
+                    });
+            });
+    </script>
+}

@@ -1,0 +1,47 @@
+﻿@model MVCAud4.Models.Client
+@{
+    ViewBag.Title = "NewClient";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add a new Client</h2>
+
+@using (Html.BeginForm("NewClient", "Clients"))
+{
+    <div class="form-group">
+        @Html.LabelFor(client => client.Name)
+        @Html.TextBoxFor(client => client.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(client => client.Name)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(client => client.Age)
+        @Html.TextBoxFor(client => client.Age, new { @class = "form-control", type = "number" })
+        @Html.ValidationMessageFor(client => client.Age)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(client => client.Address)
+        @Html.TextBoxFor(client => client.Address, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(client => client.Telephone)
+        @Html.TextBoxFor(client => client.Telephone, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(client => client.MemberCard)
+        @Html.TextBoxFor(client => client.MemberCard, new { @class = "form-control" })
+    </div>
+
+    <div class="checkbox">
+        <label class="control-label">
+            @Html.CheckBoxFor(client => client.IsSubscribed) Subscribe to newsletter?
+        </label>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}

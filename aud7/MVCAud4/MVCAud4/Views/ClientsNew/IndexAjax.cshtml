@@ -1,0 +1,67 @@
+﻿@{
+    ViewBag.Title = "IndexAjax";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table id="my-table" class="table table-responsive table-hover">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Age</th>
+        <th>Member Card</th>
+        <th>Telephone</th>
+        <th>IsSubscribed</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    </tbody>
+</table>
+
+@section scripts
+{
+    <script>
+        $(document).ready(function() {
+            $("#my-table").DataTable({
+                ajax: {
+                    url: "/api/clientsapi",
+                    dataSrc: ""
+                },
+                columns: [
+                    {
+                        data: "Name",
+                        render: function(data, type, client) {
+                            var name = client.Name;
+                            var id = client.Id;
+                            var url = "/ClientsNew/Edit/" + id;
+                            return "<a href=" + url + ">" + name + "</a>";
+                        }
+                    }, {
+                        data: "Address"
+                    }, {
+                        data: "Age"
+                    }, {
+                        data: "MemberCard"
+                    }, {
+                        data: "Telephone"
+                    }, {
+                        data: "IsSubscribed",
+                        render: function(data, type, client) {
+                            var status = client.IsSubscribed;
+                            if (status)
+                                return "<input type=checkbox disabled checked>";
+                            else
+                                return "<input type=checkbox disabled>";
+                        }
+                    }
+                ]
+            });
+        });
+    </script>
+}

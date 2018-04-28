@@ -1,0 +1,23 @@
+﻿@model MVCAud4.ViewModels.MovieRentalViewModel
+@{
+    ViewBag.Title = "ShowMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Film: @Model.Movie.Name</h2>
+<h3>Rating: @Model.Movie.Rating</h3>
+<span>Download from <a href="http://@Model.Movie.DownloadURL" target="_blank">HERE</a></span>
+<h3>Clients</h3>
+<ul>
+    @{
+        foreach (var client in Model.Clients)
+        {
+            <li>
+                @Html.ActionLink(client.Name, "ShowClient", "Clients",
+                    new {id = client.Id}, new {})
+            </li>
+        }
+    }
+</ul>
+@Html.ActionLink($"Add new client to {Model.Movie.Name}", "InsertClientInMovie", "Clients",
+    new {id = Model.Movie.Id}, new {@class = "btn btn-default", style="text-decoration: none;"})
