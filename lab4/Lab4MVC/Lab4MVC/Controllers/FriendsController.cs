@@ -27,18 +27,22 @@ namespace Lab4MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Friend friend = db.Friends.Find(id);
             if (friend == null)
             {
                 return HttpNotFound();
             }
+
             return View(friend);
         }
 
         // GET: Friends/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new Friend();
+            ViewBag.ErrorMessageFriendId = String.Empty;
+            return View(model);
         }
 
         // POST: Friends/Create
@@ -46,15 +50,23 @@ namespace Lab4MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,FriendId,Name,Hometown")] Friend friend)
+        public ActionResult Create([Bind(Include = "Id,FriendId,Name,Hometown")]
+            Friend friend)
         {
             if (ModelState.IsValid)
             {
+                var target = db.Friends.FirstOrDefault(f => f.FriendId == friend.FriendId);
+                if (target != null)
+                {
+                    ViewBag.ErrorMessageFriendId = "That Friend Id already exists";
+                    return View(friend);
+                }
+                ViewBag.ErrorMessageFriendId = String.Empty;
                 db.Friends.Add(friend);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            ViewBag.ErrorMessageFriendId = String.Empty;
             return View(friend);
         }
 
@@ -65,11 +77,13 @@ namespace Lab4MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Friend friend = db.Friends.Find(id);
             if (friend == null)
             {
                 return HttpNotFound();
             }
+
             return View(friend);
         }
 
@@ -78,7 +92,8 @@ namespace Lab4MVC.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FriendId,Name,Hometown")] Friend friend)
+        public ActionResult Edit([Bind(Include = "Id,FriendId,Name,Hometown")]
+            Friend friend)
         {
             if (ModelState.IsValid)
             {
@@ -86,6 +101,7 @@ namespace Lab4MVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(friend);
         }
 
@@ -96,11 +112,13 @@ namespace Lab4MVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Friend friend = db.Friends.Find(id);
             if (friend == null)
             {
                 return HttpNotFound();
             }
+
             return View(friend);
         }
 
@@ -121,6 +139,7 @@ namespace Lab4MVC.Controllers
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
