@@ -10,7 +10,8 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table id="table" class="table">
+    <thead>
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.FriendId)
@@ -23,24 +24,57 @@
         </th>
         <th></th>
     </tr>
+    </thead>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FriendId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hometown)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FriendId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Hometown)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {id = item.Id}) |
+                @Html.ActionLink("Details", "Details", new {id = item.Id}) |
+                <button class="btn-link js-delete" data-friend-id="@item.Id">Delete</button>
+                @Html.ActionLink("Delete", "Delete", new {id = item.Id})
+            </td>
+        </tr>
+    }
+    </tbody>
 </table>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).on("ready",
+            function() {
+                var table = $("#table").DataTable();
+
+                $("#table .js-delete").on("click",
+                    function() {
+                        var button = $(this);
+                        var URL = "/api/friendsapi/" + button.attr("data-friend-id");
+                        console.log(URL);
+                        $.ajax({
+                            url: URL,
+                            method: "DELETE",
+                            success: function() {
+                                console.log("SUCCESS");
+                                var parent = button.parents("tr");
+                                $(parent).fadeOut("slow",
+                                    function() {
+                                        table.row(parent).remove().draw();
+                                    });
+                            }
+                        });
+                    });
+            });
+    </script>
+}
