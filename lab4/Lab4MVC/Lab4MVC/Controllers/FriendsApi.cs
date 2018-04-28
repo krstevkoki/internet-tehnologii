@@ -19,7 +19,7 @@ namespace Lab4MVC.Controllers
         // GET: api/FriendsApi
         public IEnumerable<Friend> GetFriends()
         {
-            return db.Friends;
+            return db.Friends.ToList();
         }
 
         // GET: api/FriendsApi/5
