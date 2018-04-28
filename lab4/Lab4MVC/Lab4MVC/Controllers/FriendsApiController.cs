@@ -12,7 +12,7 @@ using Lab4MVC.Models;
 
 namespace Lab4MVC.Controllers
 {
-    public class FriendsApi : ApiController
+    public class FriendsApiController : ApiController
     {
         private DatabaseContext db = new DatabaseContext();
 
