@@ -1,0 +1,29 @@
+﻿@model MVCAud5.Models.AddToRoleViewModel
+@{
+    ViewBag.Title = "AddUserToRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add user to a role</h2>
+@using (Html.BeginForm())
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Username,
+            new {@class = "control-label"})
+        @Html.TextBoxFor(model => model.Username,
+            new {@class = "form-control"})
+        @Html.ValidationMessageFor(model => model.Username, "",
+            new {@class = "text-danger"})
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Roles,
+            new {@class = "control-label"})
+        @Html.DropDownListFor(model => model.SelectedRole, new SelectList(Model.Roles),
+            new {@class = "form-control"})
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-default"/>
+    </div>
+}
