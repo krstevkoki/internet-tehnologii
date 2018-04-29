@@ -17,6 +17,7 @@
         <th>Member Card</th>
         <th>Telephone</th>
         <th>IsSubscribed</th>
+        <th></th>
     </tr>
     </thead>
 
@@ -28,20 +29,14 @@
 {
     <script>
         $(document).ready(function() {
-            $("#my-table").DataTable({
+            var table = $("#my-table").DataTable({
                 ajax: {
                     url: "/api/clientsapi",
                     dataSrc: ""
                 },
                 columns: [
                     {
-                        data: "Name",
-                        render: function(data, type, client) {
-                            var name = client.Name;
-                            var id = client.Id;
-                            var url = "/ClientsNew/Edit/" + id;
-                            return "<a href=" + url + ">" + name + "</a>";
-                        }
+                        data: "Name"
                     }, {
                         data: "Address"
                     }, {
@@ -59,9 +54,42 @@
                             else
                                 return "<input type=checkbox disabled>";
                         }
+                    }, {
+                        data: "",
+                        render: function(data, type, client) {
+                            var id = client.Id;
+                            var urlEdit = "/ClientsNew/Edit/" + id;
+                            var urlDetails = "/ClientsNew/Details/" + id;
+
+                            return "<a href='" +
+                                urlEdit +
+                                "'>Edit</a> | <a href='" +
+                                urlDetails +
+                                "'>Details</a> |<button class='btn-link js-delete' data-client-id='" +
+                                id +
+                                "'>Delete</button>";
+                        }
                     }
                 ]
             });
+
+            $("body").on("click", ".js-delete",
+                function() {
+                    var button = $(this);
+                    var url = "/api/ClientsApi/" + button.attr("data-client-id");
+                    console.log(url);
+                    $.ajax({
+                        url: url,
+                        method: "DELETE",
+                        success: function() {
+                            var parent = button.parents("tr");
+                            $(parent).fadeOut("slow",
+                                function() {
+                                    table.row(parent).remove().draw();
+                                });
+                        }
+                    });
+                });
         });
     </script>
 }
