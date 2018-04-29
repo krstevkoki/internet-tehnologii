@@ -40,20 +40,19 @@
     <script>
         $(document).on("ready",
             function() {
-                $("#my-table").DataTable();
+                var table = $("#my-table").DataTable();
 
                 $("#my-table .js-delete").on("click",
                     function() {
                         var button = $(this);
                         var url = "/api/moviesapi/" + button.attr("data-movie-id");
-                        console.log(url);
                         $.ajax({
                             url: url,
                             method: "DELETE",
                             success: function() {
                                 var parent = button.parents("tr");
                                 $(parent).fadeOut("slow",
-                                    function() {
+                                    function () {
                                         table.row(parent).remove().draw();
                                     });
                             }
