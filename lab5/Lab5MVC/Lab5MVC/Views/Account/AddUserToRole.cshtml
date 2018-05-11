@@ -1,0 +1,25 @@
+﻿@model Lab5MVC.Models.AddUserToRoleViewModel
+@{
+    ViewBag.Title = "AddUserToRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Add User To Role</h2>
+
+@using (Html.BeginForm("AddUserToRole", "Account"))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, new {@class = "control-label"})
+        @Html.TextBoxFor(model => model.Email, new {@class = "form-control"})
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.SelectedRole, "Role", new {@class = "control-label"})
+        @Html.DropDownListFor(model => model.SelectedRole, new SelectList(Model.Roles),
+            new {@class = "form-control"})
+    </div>
+
+    <div class="form-group">
+        <input type="submit" class="btn btn-default" value="Add"/>
+    </div>
+}
